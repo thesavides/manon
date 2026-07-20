@@ -370,16 +370,20 @@
 .map-note-icon { color: var(--tan); font-size: 11px; flex: 0 0 auto; }
 .map-frame { flex: 1; }
 
-/* Jump-to-disclaimer link on each location notice. Opens the "independent
-   businesses" section of the terms (see openTcs in main.js). */
-.sep-link {
+/* Jump-to-disclaimer link on each independence notice. Opens the "independent
+   businesses" section of the terms (see openTcs in main.js).
+   Qualified with `a` so it outranks `.section-inverse a` — the booking-form
+   reminder sits inside an inverse section but on a light box, and must stay
+   brown, not tan. */
+a.sep-link {
   display: inline-block;
   font-size: var(--fs-caption); font-weight: 500;
   color: var(--brown); text-decoration: underline; text-underline-offset: 2px;
 }
-.sep-link:hover { color: var(--brown-dark); }
-.sep-link-light { color: var(--tan); margin-left: auto; }
-.sep-link-light:hover { color: var(--cream); }
+a.sep-link:hover { color: var(--brown-dark); }
+/* Light variant for the dark map banner only. */
+a.sep-link-light { color: var(--tan); margin-left: auto; }
+a.sep-link-light:hover { color: var(--cream); }
 .map-frame { width: 100%; height: 100%; min-height: 380px; display: block; border: 0; }
 .map-link {
   position: absolute; right: var(--sp-3); bottom: var(--sp-3);
