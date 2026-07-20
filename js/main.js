@@ -19,9 +19,18 @@ let lang = 'nl';
 const $  = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 const t  = key => (I18N[lang] && I18N[lang][key]) || (I18N.nl[key] ?? key);
-const euro = n => `€ ${n}`;
+// \u00a0 keeps the € from wrapping away from the number.
+const euro = n => `€\u00a0${n}`;
 const esc = s => String(s).replace(/[&<>"']/g, c =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* Alphabetical in whichever language is showing — "Poedel" and "Poodle" sort
+   to different places, so sort at render time rather than fixing the order
+   in data.js. */
+const byName = list => [...list].sort((a, b) => a[lang].localeCompare(b[lang], lang));
+
+/* Sentinel for "my breed isn't listed" */
+const BREED_OTHER = 'anders';
 
 /* ============================================================
    Services — the six cards under "Diensten".
@@ -79,8 +88,10 @@ function breedCard(item, folder) {
 
 function renderBreeds() {
   const grid = $('#breed-grid');
-  if (grid) grid.innerHTML = BREEDS.map(b => breedCard(b, 'breeds')).join('');
+  if (grid) grid.innerHTML = byName(BREEDS).map(b => breedCard(b, 'breeds')).join('');
 
+  // Wash sizes are small to extra large — that order is more useful than
+  // alphabetical, so leave them as authored.
   const wash = $('#wash-grid');
   if (wash) wash.innerHTML = WASH.map(w => breedCard(w, 'wash')).join('');
 }
@@ -88,7 +99,7 @@ function renderBreeds() {
 function renderOther() {
   const list = $('#other-list');
   if (list) {
-    list.innerHTML = [...OTHER, ...ADDONS].map(o => `
+    list.innerHTML = [...OTHER, ...SMALL].map(o => `
       <div class="rate-row">
         <div>
           <div class="rate-name">${esc(o[lang])}</div>
@@ -120,7 +131,7 @@ function serviceOptions() {
     { v: 'wash',        nl: 'Alleen wassen & drogen',  en: 'Wash & dry only' },
     { v: 'plukvachten', nl: 'Plukvachten',             en: 'Hand stripping' },
     { v: 'puppy',       nl: 'Puppy wenbeurt',          en: 'Puppy intro session' },
-    { v: 'klein',       nl: 'Alleen een kleine behandeling', en: 'A small treatment only' },
+    { v: 'klein',       nl: 'Kleine losse behandeling', en: 'Small standalone treatment' },
     { v: 'advies',      nl: 'Ik weet het nog niet — graag advies', en: "I'm not sure yet — I'd like advice" },
   ];
 }
@@ -138,10 +149,14 @@ function fillSelect(sel, placeholderKey, items) {
 function renderFormControls() {
   fillSelect($('#f-service'), 'book.servicePh',
     serviceOptions().map(o => ({ v: o.v, label: o[lang] })));
-  fillSelect($('#f-breed'), 'book.breedPh',
-    BREEDS.map(b => ({ v: b.id, label: `${b[lang]} — ${euro(b.price)}` })));
+  fillSelect($('#f-breed'), 'book.breedPh', [
+    ...byName(BREEDS).map(b => ({ v: b.id, label: `${b[lang]} — ${euro(b.price)}` })),
+    { v: BREED_OTHER, label: t('book.breedOther') },   // always last
+  ]);
   fillSelect($('#f-size'), 'book.sizePh',
     WASH.map(w => ({ v: w.id, label: `${w[lang]} — ${euro(w.price)}` })));
+  fillSelect($('#f-small'), 'book.smallPh',
+    SMALL.map(s => ({ v: s.id, label: `${s[lang]} — ${euro(s.price)}` })));
 
   // Contact-preference options are static markup; relabel them in place.
   const pref = $('#f-pref');
@@ -152,17 +167,8 @@ function renderFormControls() {
 
   // Re-rendering replaces these inputs, so carry the ticks across a language
   // switch rather than silently clearing what the visitor already chose.
-  const checked = new Set(
-    $$('#addon-list input:checked, #sur-check-list input:checked').map(el => el.id)
-  );
+  const checked = new Set($$('#sur-check-list input:checked').map(el => el.id));
   const tick = id => (checked.has(id) ? ' checked' : '');
-
-  const addons = $('#addon-list');
-  if (addons) addons.innerHTML = ADDONS.map(a => `
-    <div class="checkbox-row">
-      <input type="checkbox" id="add-${a.id}" data-addon="${a.id}" data-price="${a.price}"${tick(`add-${a.id}`)}>
-      <label for="add-${a.id}">${esc(a[lang])} <span class="text-soft">&mdash; ${euro(a.price)}</span></label>
-    </div>`).join('');
 
   const surs = $('#sur-check-list');
   if (surs) surs.innerHTML = SURCHARGES.map(s => `
@@ -172,25 +178,32 @@ function renderFormControls() {
     </div>`).join('');
 }
 
-/* ── Show the breed or size field to match the chosen service ── */
+/* ── Show the follow-up field that matches the chosen service ── */
 function syncServiceFields() {
   const service = $('#f-service')?.value || '';
-  const breedField = $('#field-breed');
-  const sizeField  = $('#field-size');
-  const breedSel   = $('#f-breed');
-  const sizeSel    = $('#f-size');
 
-  const wantBreed = service === 'trim';
-  const wantSize  = service === 'wash';
+  const want = {
+    breed: service === 'trim',
+    size:  service === 'wash',
+    small: service === 'klein',
+  };
 
-  if (breedField) breedField.hidden = !wantBreed;
-  if (sizeField)  sizeField.hidden  = !wantSize;
+  for (const [name, on] of Object.entries(want)) {
+    const field = $(`#field-${name}`);
+    const sel   = $(`#f-${name}`);
+    if (field) field.hidden = !on;
+    // Only require — and only submit — the field that is actually visible.
+    if (sel) { sel.required = on; if (!on) sel.value = ''; }
+  }
 
-  // Only require — and only submit — the field that is actually visible.
-  if (breedSel) { breedSel.required = wantBreed; if (!wantBreed) breedSel.value = ''; }
-  if (sizeSel)  { sizeSel.required  = wantSize;  if (!wantSize)  sizeSel.value  = ''; }
-
+  syncBreedOtherHint();
   updateEstimate();
+}
+
+/* "Other" has no price, so explain what happens next instead. */
+function syncBreedOtherHint() {
+  const hint = $('#breed-other-hint');
+  if (hint) hint.hidden = $('#f-breed')?.value !== BREED_OTHER;
 }
 
 /* ── Live price indication ── */
@@ -204,18 +217,22 @@ function updateEstimate() {
   let approx = false;
 
   if (service === 'trim') {
+    // "Other" is deliberately priceless — Manon quotes it herself.
     const b = BREEDS.find(x => x.id === $('#f-breed')?.value);
     if (b) base = b.price;
   } else if (service === 'wash') {
     const w = WASH.find(x => x.id === $('#f-size')?.value);
     if (w) base = w.price;
+  } else if (service === 'klein') {
+    const s = SMALL.find(x => x.id === $('#f-small')?.value);
+    if (s) base = s.price;
   } else if (service === 'plukvachten') {
     base = 50; approx = true;             // hourly rate, so a floor not a total
   } else if (service === 'puppy') {
     base = 50;
   }
 
-  const extras = $$('#addon-list input:checked, #sur-check-list input:checked')
+  const extras = $$('#sur-check-list input:checked')
     .reduce((sum, el) => sum + Number(el.dataset.price || 0), 0);
 
   const total = base + extras;
@@ -235,6 +252,8 @@ function setLang(next) {
 
   // Short strings
   $$('[data-i18n]').forEach(el => { el.textContent = t(el.getAttribute('data-i18n')); });
+  // Strings carrying entities (curly quotes, dashes) that must render as markup
+  $$('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n-html')); });
   $$('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.getAttribute('data-i18n-ph')); });
   $$('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))); });
   $$('[data-i18n-alt]').forEach(el => { el.alt = t(el.getAttribute('data-i18n-alt')); });
@@ -366,10 +385,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ── Form reactivity ── */
   $('#f-service')?.addEventListener('change', syncServiceFields);
-  $('#f-breed')?.addEventListener('change', updateEstimate);
+  $('#f-breed')?.addEventListener('change', () => { syncBreedOtherHint(); updateEstimate(); });
   $('#f-size')?.addEventListener('change', updateEstimate);
+  $('#f-small')?.addEventListener('change', updateEstimate);
   document.addEventListener('change', e => {
-    if (e.target.matches('#addon-list input, #sur-check-list input')) updateEstimate();
+    if (e.target.matches('#sur-check-list input')) updateEstimate();
   });
 
   /* ── T&Cs accordion ── */
@@ -459,9 +479,11 @@ document.addEventListener('DOMContentLoaded', () => {
           Hond: f.dog.value,
           Leeftijd: f.age.value || '—',
           Behandeling: serviceLabel,
-          Ras: labelFor(BREEDS, f.breed.value) || '—',
+          Ras: f.breed.value === BREED_OTHER
+            ? (lang === 'nl' ? 'Anders — zie bericht' : 'Other — see message')
+            : labelFor(BREEDS, f.breed.value) || '—',
           Grootte: labelFor(WASH, f.size.value) || '—',
-          Extras: picked('#addon-list input'),
+          'Kleine behandeling': labelFor(SMALL, f.small.value) || '—',
           Toeslagen: picked('#sur-check-list input'),
           Indicatie: $('#estimate').hidden ? '—' : $('#estimate-value').textContent,
           Voorkeurmoment: f.when.value || '—',

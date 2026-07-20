@@ -345,6 +345,7 @@
           <select class="select" id="f-breed" name="breed">
             <option value="" data-i18n="book.breedPh">Kies een ras</option>
           </select>
+          <p class="field-hint" id="breed-other-hint" hidden data-i18n-html="book.breedOtherHint"></p>
         </div>
 
         <!-- Shown only for the wash & dry service -->
@@ -355,10 +356,12 @@
           </select>
         </div>
 
-        <div class="field">
-          <span class="field-label" data-i18n="book.addons">Kleine behandelingen erbij</span>
-          <p class="field-hint mb-0" data-i18n="book.addonsHint">Optioneel, los bij te boeken.</p>
-          <div class="check-list mt-3" id="addon-list"><!-- rendered by js/main.js --></div>
+        <!-- Shown only for the standalone small treatments -->
+        <div class="field" id="field-small" hidden>
+          <label for="f-small" data-i18n="book.small">Welke kleine behandeling?</label>
+          <select class="select" id="f-small" name="small">
+            <option value="" data-i18n="book.smallPh">Kies een behandeling</option>
+          </select>
         </div>
 
         <div class="field">

@@ -74,7 +74,14 @@
 }
 .nav-links > li > a:not(.btn):hover { color: var(--brown-dark); }
 .nav-links > li > a:not(.btn):hover::after { right: 0; }
-.nav-cta a { color: var(--white) !important; }
+/* `.nav-links > li > a` outranks `.btn-sm`, which flattened this button to
+   4px 0. Match that specificity to give the CTA its padding back. */
+.nav-links > li.nav-cta > a {
+  padding: 12px 26px;
+  color: #FFFFFF;
+  font-weight: 500;
+}
+.nav-links > li.nav-cta > a:hover { color: #FFFFFF; }
 
 .nav-tools { display: flex; align-items: center; gap: var(--sp-3); }
 
@@ -387,12 +394,12 @@
 .wa-float {
   position: fixed; right: 20px; bottom: 20px; z-index: 45;
   width: 54px; height: 54px; border-radius: 50%;
-  background: #25D366; color: #06331A;
+  background: var(--wa); color: #FFFFFF;
   display: flex; align-items: center; justify-content: center;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
   transition: transform .2s var(--ease), box-shadow .2s var(--ease);
 }
-.wa-float:hover { transform: scale(1.08); color: #06331A; box-shadow: 0 10px 26px rgba(0,0,0,.28); }
+.wa-float:hover { transform: scale(1.08); color: #FFFFFF; background: var(--wa-deep); box-shadow: 0 10px 26px rgba(0,0,0,.28); }
 .wa-float svg { width: 29px; height: 29px; fill: currentColor; }
 
 /* ============================================================

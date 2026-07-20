@@ -62,10 +62,11 @@ const OTHER = [
             en: 'Up to 20 weeks. First bath, dry, comb and a nail trim.' } },
 ];
 
-/* Small add-ons — offered as checkboxes on the enquiry form */
-const ADDONS = [
-  { id: 'nagels',          nl: 'Nagels knippen',            en: 'Nail trim',              price: 15 },
-  { id: 'oogjes',          nl: 'Oogjes vrijknippen',        en: 'Trimming around the eyes', price: 15 },
+/* Small treatments — "Kleine losse behandelingen".
+   Booked on their own, not added to another treatment. */
+const SMALL = [
+  { id: 'nagels', nl: 'Nagels knippen',     en: 'Nail trim',                price: 15 },
+  { id: 'oogjes', nl: 'Oogjes vrijknippen', en: 'Trimming around the eyes', price: 15 },
 ];
 
 /* Surcharges — "Toeslagen". Assessed by Manon, shown for transparency

@@ -24,6 +24,21 @@
   --sage-deep:   #7E8C68;
   --white:       #FFFDF9;
 
+  /* ---- Pop accent ----
+     Terracotta, picked up from the orange buttons on her current site. Warm
+     enough to sit inside the brown/tan palette, saturated enough that a CTA
+     reads as the one thing to click. Reserved for primary actions only —
+     if it appears on more than one element per screen it stops popping.
+     White on --pop is 5.07:1 and on --pop-deep 5.79:1; --pop as text on
+     --cream is 4.58:1. All clear 4.5:1 — measured, not guessed. */
+  --pop:      #B84E18;
+  --pop-deep: #A94814;
+
+  /* WhatsApp. Brand green #25D366 is too light to carry white text (1.98:1),
+     and dark-on-bright reads muddy, so use the darker brand green. 6.4:1. */
+  --wa:       #0B6B5F;
+  --wa-deep:  #075E54;
+
   /* semantic aliases */
   --bg:             var(--cream);
   --bg-alt:         var(--white);
@@ -172,19 +187,36 @@ em, .italic { font-style: italic; }
 .btn:active { transform: translateY(0); }
 .btn svg { width: 18px; height: 18px; fill: currentColor; flex: 0 0 auto; }
 
-.btn-primary { background: var(--brown); color: var(--white); box-shadow: var(--shadow-sm); }
-.btn-primary:hover { background: var(--brown-dark); color: var(--white); box-shadow: var(--shadow-card); }
+/* The one CTA colour. Terracotta on cream, white on terracotta. */
+.btn-primary {
+  background: var(--pop); color: #FFFFFF;
+  padding: 17px 38px; font-weight: 500;
+  box-shadow: 0 4px 14px rgba(184, 78, 24, 0.28);
+}
+.btn-primary:hover {
+  background: var(--pop-deep); color: #FFFFFF;
+  box-shadow: 0 8px 22px rgba(184, 78, 24, 0.36);
+}
 
 .btn-outline { background: transparent; border-color: var(--border-strong); color: var(--brown-dark); }
 .btn-outline:hover { background: var(--brown-dark); border-color: var(--brown-dark); color: var(--cream); }
 
-.btn-whatsapp { background: #25D366; color: #06331A; }
-.btn-whatsapp:hover { background: #1EBE5A; color: #06331A; }
+/* The `.section-inverse a` rule below outranks a bare `.btn-whatsapp`, which
+   silently painted this button's label tan on green. Match that specificity
+   so white wins wherever the button lands. */
+.btn-whatsapp,
+.section-inverse .btn-whatsapp { background: var(--wa); color: #FFFFFF; padding: 17px 34px; }
+.btn-whatsapp:hover,
+.section-inverse .btn-whatsapp:hover { background: var(--wa-deep); color: #FFFFFF; }
+
+/* Same trap for the primary CTA inside an inverse section. */
+.section-inverse .btn-primary { background: var(--pop); color: #FFFFFF; }
+.section-inverse .btn-primary:hover { background: var(--pop-deep); color: #FFFFFF; }
 
 .section-inverse .btn-outline { border-color: var(--border-inverse); color: var(--cream); }
 .section-inverse .btn-outline:hover { background: var(--cream); border-color: var(--cream); color: var(--brown-dark); }
 
-.btn-sm { padding: 9px 20px; font-size: var(--fs-small); }
+.btn-sm { padding: 12px 26px; font-size: var(--fs-small); }
 .btn-block { display: flex; width: 100%; }
 .btn:disabled { opacity: .55; cursor: not-allowed; transform: none; }
 
