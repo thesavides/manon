@@ -1,0 +1,5 @@
+# Concept preview. This site is a design proposal and must not compete with
+# manonsvachtatelier.nl in search results. Remove the Disallow (and the
+# robots meta tag in index.html) only if it goes live with Manon's agreement.
+User-agent: *
+Disallow: /
