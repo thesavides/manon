@@ -6,3 +6,4 @@ node_modules/
 # Source artwork before compression — kept locally, not needed to build
 _originals/
 dist/
+README.md

@@ -19,6 +19,15 @@ const LEGAL = [
       <p>In these terms, &ldquo;the owner&rdquo; means the person presenting the dog, and &ldquo;the groomer&rdquo; means Manon Dekker.</p>` },
   },
   {
+    id: 'zelfstandig',
+    nl: { t: 'Zelfstandig van 101 Pootjes', b: `
+      <p>Let op: de trimsalon Manon&rsquo;s Vachtatelier is een zelfstandig bedrijf en staat los van 101 Pootjes. Alle reserveringen, afspraken en betalingen verlopen rechtstreeks met de salon. 101 Pootjes is niet betrokken bij de dienstverlening van de salon en draagt hiervoor geen verantwoordelijkheid of aansprakelijkheid.</p>
+      <p>De salon is enkel binnen Dierenspeciaalzaak 101 Pootjes gevestigd; daarmee eindigt de betrokkenheid van 101 Pootjes. Vragen, klachten of aansprakelijkstellingen over een behandeling richt je uitsluitend aan Manon&rsquo;s Vachtatelier via de contactgegevens onderaan deze pagina.</p>` },
+    en: { t: 'Independent of 101 Pootjes', b: `
+      <p>Please note: the grooming salon Manon&rsquo;s Vachtatelier is an independent business and is separate from 101 Pootjes. All reservations, appointments and payments are handled directly with the salon. 101 Pootjes is not involved in the salon&rsquo;s services and carries no responsibility or liability for them.</p>
+      <p>The salon is only located inside pet shop Dierenspeciaalzaak 101 Pootjes; 101 Pootjes&rsquo; involvement ends there. Any questions, complaints or liability claims about a treatment should be directed solely to Manon&rsquo;s Vachtatelier, using the contact details at the foot of this page.</p>` },
+  },
+  {
     id: 'afspraken',
     nl: { t: 'Aanvragen en afspraken', b: `
       <p>Iedere hond heeft een andere behandeling nodig en dus ook meer of minder tijd. Om die reden worden afspraken niet online geboekt, maar persoonlijk ingepland.</p>
