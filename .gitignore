@@ -5,3 +5,4 @@ node_modules/
 .wrangler/
 # Source artwork before compression — kept locally, not needed to build
 _originals/
+dist/
