@@ -450,17 +450,18 @@
         </div>
       </div>
 
-      <!-- Click-to-load map: Google's iframe sets cookies, so it is only
-           injected once the visitor asks for it. -->
-      <div class="map-holder" id="map-holder">
-        <button class="map-load" id="map-load" type="button">
-          <span class="map-pin" aria-hidden="true">&#9679;</span>
-          <span class="map-load-text">
-            <strong>Diemerplein 174, 1111 JD Diemen</strong>
-            <span class="text-sm" data-lang="nl">Klik om de kaart van Google Maps te laden. Hierbij worden cookies van Google geplaatst.</span>
-            <span class="text-sm" data-lang="en" hidden>Click to load the map from Google Maps. This will set Google cookies.</span>
-          </span>
-        </button>
+      <!-- OpenStreetMap rather than Google Maps. Google's embed sets cookies
+           the moment it loads, which would mean either a consent gate in
+           front of the map or setting them without asking. OSM sets none, so
+           the map can simply show. -->
+      <div class="map-holder">
+        <iframe
+          class="map-frame"
+          data-i18n-title="loc.mapAlt"
+          title="Kaart met de locatie van Manon's Vachtatelier aan het Diemerplein 174 in Diemen"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=4.9523%2C52.3388%2C4.9723%2C52.3448&amp;layer=mapnik&amp;marker=52.3418299%2C4.9623145"
+          loading="lazy"></iframe>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=Diemerplein+174,+1111+JD+Diemen" target="_blank" rel="noopener noreferrer" data-i18n="loc.route">Route plannen</a>
       </div>
     </div>
   </div>

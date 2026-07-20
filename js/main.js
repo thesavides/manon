@@ -257,6 +257,7 @@ function setLang(next) {
   $$('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.getAttribute('data-i18n-ph')); });
   $$('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))); });
   $$('[data-i18n-alt]').forEach(el => { el.alt = t(el.getAttribute('data-i18n-alt')); });
+  $$('[data-i18n-title]').forEach(el => { el.title = t(el.getAttribute('data-i18n-title')); });
 
   // Long-form blocks: show the matching language, hide the other
   $$('[data-lang]').forEach(el => { el.hidden = el.getAttribute('data-lang') !== lang; });
@@ -411,19 +412,6 @@ document.addEventListener('DOMContentLoaded', () => {
       body.style.maxHeight = body.scrollHeight + 'px';
       btn.setAttribute('aria-expanded', 'true');
     }
-  });
-
-  /* ── Click-to-load map (keeps Google's cookies off the page until asked) ── */
-  $('#map-load')?.addEventListener('click', () => {
-    const holder = $('#map-holder');
-    if (!holder) return;
-    holder.innerHTML = `
-      <iframe
-        title="${esc(t('loc.mapAlt'))}"
-        src="https://www.google.com/maps?q=Diemerplein+174,+1111+JD+Diemen&output=embed"
-        width="100%" height="100%" style="border:0" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        allowfullscreen></iframe>`;
   });
 
   /* ── Concept ribbon ── */

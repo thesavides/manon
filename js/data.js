@@ -11,7 +11,7 @@
 const BREEDS = [
   { id: 'chihuahua-kort',       nl: 'Chihuahua kort',        en: 'Chihuahua, short coat',  price: 70,  img: 'chihuahua-kort' },
   { id: 'chihuahua-lang',       nl: 'Chihuahua lang',        en: 'Chihuahua, long coat',   price: 85,  img: 'chihuahua-lang' },
-  { id: 'yorkshire-terrier',    nl: 'Yorkshire Terriër',     en: 'Yorkshire Terrier',      price: 85,  img: null },
+  { id: 'yorkshire-terrier',    nl: 'Yorkshire Terriër',     en: 'Yorkshire Terrier',      price: 85,  img: 'yorkshire-terrier' },
   { id: 'maltezer',             nl: 'Maltezer',              en: 'Maltese',                price: 90,  img: 'maltezer' },
   { id: 'shih-tzu',             nl: 'Shih-tzu',              en: 'Shih Tzu',               price: 90,  img: 'shih-tzu' },
   { id: 'boomer',               nl: 'Boomer',                en: 'Boomer',                 price: 90,  img: 'boomer' },

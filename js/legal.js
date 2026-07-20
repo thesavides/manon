@@ -151,12 +151,12 @@ const LEGAL = [
     nl: { t: 'Cookiebeleid', b: `
       <p>Deze website plaatst standaard alleen functionele opslag die nodig is om de site te laten werken: je taalkeuze (NL of EN) en je cookievoorkeur worden lokaal in je browser bewaard. Hiervoor is geen toestemming vereist.</p>
       <p><strong>Statistieken.</strong> Met jouw toestemming worden anonieme bezoekstatistieken verzameld via Google Analytics, zodat duidelijk wordt welke pagina&rsquo;s worden gelezen en hoe de site verbeterd kan worden. Deze cookies worden pas geplaatst nadat je op &ldquo;Accepteren&rdquo; hebt geklikt. Weiger je, dan wordt er niets geplaatst en wordt er niets gemeten.</p>
-      <p><strong>Kaart.</strong> De kaart bij &ldquo;Locatie&rdquo; wordt niet automatisch geladen. Pas wanneer je er zelf op klikt, wordt de kaart van Google opgehaald en plaatst Google zijn eigen cookies.</p>
+      <p><strong>Kaart.</strong> De kaart bij &ldquo;Locatie&rdquo; komt van OpenStreetMap en plaatst geen cookies. Je kunt de kaart dus gewoon bekijken zonder dat er iets over jou wordt vastgelegd. De knop &ldquo;Route plannen&rdquo; opent Google Maps in een nieuw tabblad; daar gelden de voorwaarden en cookies van Google.</p>
       <p>Je kunt je keuze op elk moment wijzigen via <em>Cookievoorkeuren</em> onderaan de pagina, of door de opslag van deze website in je browser te wissen.</p>` },
     en: { t: 'Cookie policy', b: `
       <p>By default this website stores only what it needs to function: your language choice (NL or EN) and your cookie preference are kept locally in your browser. No consent is required for these.</p>
       <p><strong>Statistics.</strong> With your consent, anonymous visitor statistics are collected through Google Analytics, so it is clear which pages are read and how the site can be improved. These cookies are only set once you have clicked &ldquo;Accept&rdquo;. If you decline, nothing is set and nothing is measured.</p>
-      <p><strong>Map.</strong> The map under &ldquo;Location&rdquo; does not load automatically. Only when you click it is the map fetched from Google, at which point Google sets its own cookies.</p>
+      <p><strong>Map.</strong> The map under &ldquo;Location&rdquo; comes from OpenStreetMap and sets no cookies, so you can look at it without anything being recorded about you. The &ldquo;Get directions&rdquo; button opens Google Maps in a new tab, where Google's own terms and cookies apply.</p>
       <p>You can change your choice at any time via <em>Cookie preferences</em> at the foot of the page, or by clearing this website&rsquo;s storage in your browser.</p>` },
   },
   {

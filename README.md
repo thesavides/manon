@@ -75,11 +75,10 @@ guide price.
 
 ## Known gaps
 
-- **No photo for the Yorkshire Terrier.** Its card renders a paw placeholder.
-  Drop `images/breeds/yorkshire-terrier.jpg` in and set `img:
-  'yorkshire-terrier'` in `js/data.js` to fix.
 - **Labradoodle and Poodle sizes share one photo each**, since only one image
-  of each was supplied. Same fix if more arrive.
+  of each was supplied. To fix, drop the file in `images/breeds/` and point
+  the entry's `img` at it in `js/data.js`. Every breed now has a photo; the
+  paw placeholder still renders for any entry whose `img` is `null`.
 - **Opening hours are vague** ("by appointment") because none are published.
 - **No Google Analytics property yet.** The Consent Mode v2 snippet is in
   `index.html`, commented out, with a placeholder ID. The cookie banner works
@@ -91,8 +90,13 @@ guide price.
 
 ## Privacy choices worth keeping
 
-- The Google Maps embed is **click-to-load**. Google's iframe sets cookies, so
-  it is only injected once a visitor asks for the map.
+- The map is an **OpenStreetMap embed**, which sets no cookies, so it can
+  display immediately. Google's embed sets cookies the moment it loads, which
+  would force a choice between a click-to-load gate in front of the map or
+  setting third-party cookies without asking. OSM avoids both. "Get
+  directions" still opens Google Maps, in a new tab, on the visitor's say-so.
+  Coordinates are 52.3418299, 4.9623145 (geocoded via Nominatim); the marker
+  and bbox are hard-coded in the iframe URL in `index.html`.
 - Analytics default to denied under Consent Mode v2 and only flip on Accept.
 - Language and consent choices are stored in `localStorage`, nothing else.
 
