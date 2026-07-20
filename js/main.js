@@ -395,24 +395,44 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ── T&Cs accordion ── */
+  const closeAllTcs = () => $$('.tcs-item').forEach(i => {
+    i.classList.remove('open');
+    $('.tcs-body', i).style.maxHeight = null;
+    $('.tcs-btn', i).setAttribute('aria-expanded', 'false');
+  });
+
+  const openTcs = id => {
+    const item = $(`.tcs-item[data-tcs="${id}"]`);
+    if (!item) return;
+    closeAllTcs();
+    const body = $('.tcs-body', item);
+    item.classList.add('open');
+    body.style.maxHeight = body.scrollHeight + 'px';
+    $('.tcs-btn', item).setAttribute('aria-expanded', 'true');
+    item.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   document.addEventListener('click', e => {
     const btn = e.target.closest('.tcs-btn');
     if (!btn) return;
     const item = btn.closest('.tcs-item');
-    const body = $('.tcs-body', item);
     const wasOpen = item.classList.contains('open');
-
-    $$('.tcs-item').forEach(i => {
-      i.classList.remove('open');
-      $('.tcs-body', i).style.maxHeight = null;
-      $('.tcs-btn', i).setAttribute('aria-expanded', 'false');
-    });
-
+    closeAllTcs();
     if (!wasOpen) {
+      const body = $('.tcs-body', item);
       item.classList.add('open');
       body.style.maxHeight = body.scrollHeight + 'px';
       btn.setAttribute('aria-expanded', 'true');
     }
+  });
+
+  /* ── "Two separate businesses" links on the location notices ──
+     Jump to the terms and open the independence section. */
+  document.addEventListener('click', e => {
+    const link = e.target.closest('[data-open-tcs]');
+    if (!link) return;
+    e.preventDefault();
+    openTcs(link.dataset.openTcs);
   });
 
   /* ── Concept ribbon ── */
