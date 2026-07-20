@@ -108,16 +108,33 @@ the honeypot is enforced in `js/main.js` before the request goes out.
 
 ## Deploy
 
-```bash
-# GitHub
-git remote add origin https://github.com/thesavides/manon.git
-git push -u origin main
+Both are done. Redeploy with:
 
-# Cloudflare Pages
-npx wrangler pages deploy . --project-name=manon --branch=main
+```bash
+./deploy.sh
 ```
 
-Then attach `manon.ukuva.com` as a custom domain in the Pages project.
+`deploy.sh` stages the site into `dist/` first and deploys that. Do **not**
+run `wrangler pages deploy .` from the repo root — Pages has no reliable
+ignore file, so that publishes `_originals/` (14MB of source artwork) and
+`README.md` to the live site.
+
+| What | URL |
+|---|---|
+| Site (Pages default) | https://manon-60m.pages.dev |
+| GitHub | https://github.com/thesavides/manon |
+| Cloudflare project | `manon`, account `chris@ukuva.com` |
+
+`manon.pages.dev` was taken, hence the `-60m` suffix.
+
+### Still to do: the custom domain
+
+`manon.ukuva.com` is **not** attached yet. Wrangler 4.x has no
+`pages domain` subcommand, so it has to be done in the dashboard:
+
+> Cloudflare dashboard → Workers & Pages → **manon** → Custom domains →
+> Set up a custom domain → `manon.ukuva.com`
+
 Cloudflare creates the CNAME automatically since ukuva.com is on Cloudflare.
 
 ## Local preview
