@@ -130,8 +130,10 @@ const I18N = {
     /* ---- Location ---- */
     'loc.eyebrow':   'Locatie',
     'loc.title':     'Je vindt me in Diemen',
-    'loc.inside':    'De trimsalon is gevestigd in Dierenspeciaalzaak 101 Pootjes.',
+    'loc.inside':    'De trimsalon zit bínnen in Dierenspeciaalzaak 101 Pootjes. Je loopt gewoon de winkel in — de salon vind je binnenin de zaak.',
     'loc.address':   'Adres',
+    'loc.arrive':    'Loop bij aankomst de winkel van 101 Pootjes binnen; de trimsalon bevindt zich in de zaak.',
+    'loc.mapNote':   'De salon zit binnen in de winkel van 101 Pootjes',
     'loc.contact':   'Contact',
     'loc.route':     'Route plannen',
     'loc.hours':     'Openingstijden',
@@ -288,8 +290,10 @@ const I18N = {
     /* ---- Location ---- */
     'loc.eyebrow':   'Location',
     'loc.title':     'You\'ll find me in Diemen',
-    'loc.inside':    'The salon is located inside pet shop Dierenspeciaalzaak 101 Pootjes.',
+    'loc.inside':    'The salon is inside pet shop Dierenspeciaalzaak 101 Pootjes. You simply walk into the shop — the salon is in there.',
     'loc.address':   'Address',
+    'loc.arrive':    'When you arrive, walk into the 101 Pootjes shop; the salon is inside.',
+    'loc.mapNote':   'The salon is inside the 101 Pootjes shop',
     'loc.contact':   'Contact',
     'loc.route':     'Get directions',
     'loc.hours':     'Opening hours',

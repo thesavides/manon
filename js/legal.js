@@ -10,11 +10,11 @@ const LEGAL = [
   {
     id: 'toepasselijkheid',
     nl: { t: 'Toepasselijkheid', b: `
-      <p>Deze algemene voorwaarden zijn van toepassing op iedere aanvraag, afspraak en behandeling bij Manon&rsquo;s Vachtatelier, gevestigd aan het Diemerplein 174, 1111 JD Diemen, werkzaam in Dierenspeciaalzaak 101 Pootjes.</p>
+      <p>Deze algemene voorwaarden zijn van toepassing op iedere aanvraag, afspraak en behandeling bij Manon&rsquo;s Vachtatelier, gevestigd aan het Diemerplein 174, 1111 JD Diemen. De trimsalon bevindt zich bínnen in Dierenspeciaalzaak 101 Pootjes: je loopt bij aankomst de winkel binnen en vindt de salon in de zaak.</p>
       <p>Door een afspraak aan te vragen of je hond ter behandeling aan te bieden, ga je akkoord met deze voorwaarden. Afwijkingen gelden alleen wanneer die vooraf schriftelijk zijn afgesproken.</p>
       <p>In deze voorwaarden wordt met &ldquo;de eigenaar&rdquo; de persoon bedoeld die de hond aanbiedt, en met &ldquo;de trimster&rdquo; Manon Dekker.</p>` },
     en: { t: 'Scope', b: `
-      <p>These terms apply to every enquiry, appointment and treatment at Manon&rsquo;s Vachtatelier, based at Diemerplein 174, 1111 JD Diemen, operating inside pet shop Dierenspeciaalzaak 101 Pootjes.</p>
+      <p>These terms apply to every enquiry, appointment and treatment at Manon&rsquo;s Vachtatelier, based at Diemerplein 174, 1111 JD Diemen. The salon is located inside pet shop Dierenspeciaalzaak 101 Pootjes: on arrival you walk into the shop and find the salon in there.</p>
       <p>By requesting an appointment or presenting your dog for treatment, you accept these terms. Any departure from them applies only where agreed in writing beforehand.</p>
       <p>In these terms, &ldquo;the owner&rdquo; means the person presenting the dog, and &ldquo;the groomer&rdquo; means Manon Dekker.</p>` },
   },
