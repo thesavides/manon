@@ -318,12 +318,13 @@ function filterBreeds() {
 document.addEventListener('DOMContentLoaded', () => {
   renderLegal();
 
-  // A saved choice wins; otherwise fall back to the browser's language,
-  // defaulting to Dutch since that is what most of her customers read.
+  // Dutch is the default, full stop. This is a Dutch salon with Dutch
+  // customers, so the site should open in Dutch even for a visitor whose
+  // browser is set to English. Only an explicit choice via the NL/EN
+  // toggle changes it, and that choice persists.
   let saved = null;
   try { saved = localStorage.getItem(LANG_KEY); } catch (e) {}
-  const browserPrefersEn = (navigator.language || '').toLowerCase().startsWith('en');
-  setLang(saved || (browserPrefersEn ? 'en' : 'nl'));
+  setLang(saved === 'en' ? 'en' : 'nl');
 
   const y = $('#year');
   if (y) y.textContent = new Date().getFullYear();

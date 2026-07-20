@@ -63,9 +63,17 @@ manonsvachtatelier.nl/tarieven as published on 20 July 2026.
 against `js/i18n.js`. Long prose (Manon's bio, the terms) sits in the HTML
 inside `[data-lang="nl"]` / `[data-lang="en"]` blocks, both present, one
 hidden. `setLang()` handles both and re-renders the data-driven parts, since
-breed labels differ by language. A saved choice wins; otherwise the browser's
-language decides, defaulting to Dutch. Breed search matches both languages,
-so "poedel" and "poodle" both find the Poodles.
+breed labels differ by language.
+
+**Dutch is the default unconditionally.** The site opens in Dutch even for a
+visitor whose browser is set to English — this is a Dutch salon with Dutch
+customers. Only an explicit click on the NL/EN toggle changes it, and that
+choice persists in `localStorage`. Browser-language sniffing was tried and
+removed: it meant a Dutch business greeting most of its own customers'
+English-configured browsers in English.
+
+Breed search matches both languages, so "poedel" and "poodle" both find the
+Poodles regardless of which language is showing.
 
 **The form is an enquiry, not a booking.** This is the point Manon made in her
 reply: every dog needs a different treatment and a different amount of time,
